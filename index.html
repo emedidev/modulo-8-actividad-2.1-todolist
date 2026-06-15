@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>App To Do List</h1>
+        <h3>Lista para compras</h3>
+    </header>
+    <main>
+        <fieldset>
+            <legend>Lista de compras</legend>
+            <form action="">
+                <div class="containerImpForm">
+                    <div class="boxContainer">
+                        <label for="prodName">Producto</label>
+                        <input required placeholder="Ingrese el producto" type="text" name="prodName" id="prodName">
+                    </div>
+                    <div class="boxContainer">
+                        <label for="prodCuant">Cantidad</label>
+                        <input required placeholder="Ingrese la cantidad" type="number" name="prodCuant" id="prodCuant">
+                    </div>
+                    <div class="boxContainer">
+                        <label for="prodPrice">Precio</label>
+                        <input required placeholder="Ingrese el precio" type="number" name="prodPrice" id="prodPrice">
+                    </div>
+                </div>
+                <div class="containerButton">
+                    <button type="button" class="btnSuccess" onclick="agregarLista()">Agregar a lista</button>
+                </div>
+            </form>
+        </fieldset>
+        <table>
+            <caption>Lista de productos</caption>
+            <thead>
+                <tr>
+                    <th>Id.</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                    <th>Estatus</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody id="contentList">
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">Total</td>
+                    <td class="totalCantidad">0</td>
+                    <td class="totalPrecio">0</td>
+                    <td  colspan="3" class="totales">0</td>
+                </tr>
+            </tfoot>
+        </table>
+    </main>
+    <footer>
+        <h2>Modulo 8: Actividad 2.1</h2>
+        <h3>Maquetada por Enmanuel Medina</h3>
+    </footer>
+</body>
+</html>
