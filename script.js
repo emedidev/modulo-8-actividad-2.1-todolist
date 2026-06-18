@@ -1,9 +1,6 @@
 let productos = [];
 
-function agregarLista(){
-    
-    /* Seleccionar donde se visualizara */
-    let output = document.getElementById("contentList");
+function agregarProducto(){
     
     /* Seleccionar de donde vendran los datos */
     let product = document.getElementById("prodName");
@@ -11,7 +8,7 @@ function agregarLista(){
     let price = document.getElementById("prodPrice");
 
     /* validacion de datos */
-    if(product === "" || cuantity === "" || price === ""){
+    if(product.value === "" || cuantity.value === "" || price.value === ""){
         alert("Debe completarlos campos requeridos.");
         return;
     } else if(cuantity <=0 || price <= 0){
@@ -19,7 +16,7 @@ function agregarLista(){
         return;
     }
 
-    /* Registro almacenado y almacenar */
+    /* Creando variable de registro */
     const listProd = {
         Id: productos.length+1,
         Product: product.value,
@@ -28,41 +25,65 @@ function agregarLista(){
         amound: cuantity.value * price.value
     };
     productos.push(listProd);
-    
-    /* Preparando registro para la tabla */
-    
-    let content = document.createElement("tr");
-    content.id = listProd.Id;
 
-    content.innerHTML = `
-        <td>${listProd.Id}</td>
-        <td>${listProd.Product}</td>
-        <td>${listProd.Cuantity}</td>
-        <td>${listProd.Price}</td>
-        <td>${listProd.amound}</td>
-        <td>
-            <input type="checkbox" id="checkbox${listProd.Id}" class="checkBut"/>
-            <label for="checkbox${listProd.Id}">Pendiente</label>
-        </td>
-        <td>
-            <button 
-                type="button" 
-                class="btnDelete" 
-                onclick="handlerDelete(${listProd.Id})">
-                    Delete
-            </button>
-        </td>
-    `
-    /* Agregando registro al dom */
-    output.append(content);
-    
     /* Limpiando campos */
     product.value = ""
     cuantity.value = ""
     price.value = ""
 
+    mostrarRegistros(productos)
+}
+
+function mostrarRegistros(values){
+    
+    /* Seleccionar donde se visualizara */
+    let output = document.getElementById("contentList");
+    
+    /* Limpia el contendido del DOM */
+    output.innerHTML = ""
+    if(values.length === 0){
+        return;
     }
 
-    function handlerDelete(e){
-        let element = document.getElementById(e).remove()
-    }
+    /* Preparando registro para la tabla */
+    values.forEach(e=>{
+
+        let content = document.createElement("tr");
+        content.id = e.Id;
+        
+        content.innerHTML = `
+            <td>${e.Id}</td>
+            <td>${e.Product}</td>
+            <td>${e.Cuantity}</td>
+            <td>${e.Price}</td>
+            <td>${e.amound}</td>
+            <td>
+                <input type="checkbox" id="checkbox${e.Id}" class="checkBut"/>
+                <label for="checkbox${e.Id}">Pendiente</label>
+            </td>
+            <td>
+                <button 
+                    type="button" 
+                    class="btnDelete" 
+                    onclick="eliminar(${e.Id})">
+                        Delete
+                </button>
+                </td>
+                `
+                /* Agregando registro al dom */
+                output.appendChild(content);
+            }
+    )
+    return output
+}
+
+function eliminar(e){
+    console.log(productos.indexOf(e))
+    let element = document.getElementById(e).remove()
+    console.log(productos)
+}
+
+let numeros =[1,2,3]
+console.log(numeros.forEach(elm=>{
+    console.log(numeros.indexOf(elm))
+}))
