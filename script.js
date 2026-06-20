@@ -18,6 +18,9 @@ function agregarProducto(){
     } else if(cuantity <=0 || price <= 0){
         alert("Valores ingresados no pueden ser negativos");
         return;
+    } else if(cuantity.value <= 0 || price.value <= 0){
+        alert("Debe ingresar valores minimo de 1 digito numerico.")
+        return;
     }
 
     /* Creando variable de registro */
@@ -26,7 +29,8 @@ function agregarProducto(){
         Product: product.value,
         Cuantity: parseInt(cuantity.value),
         Price: parseInt(price.value),
-        amound: parseInt(cuantity.value * price.value)
+        amound: parseInt(cuantity.value * price.value),
+        status: "Pendiente"
     };
     productos.push(registroProd);
 
@@ -68,8 +72,8 @@ function mostrarRegistros(values){
             <td>${e.Price}</td>
             <td>${e.amound}</td>
             <td>
-                <input type="checkbox" id="checkbox${e.Id}" class="checkBut"/>
-                <label for="checkbox${e.Id}">Pendiente</label>
+                <input type="checkbox" id="checkbox${e.Id}" onclick="state(state${e.Id}, checkbox${e.Id}, ${e.Id})" class="checkBut"/>
+                <label id="state${e.Id}" for="checkbox${e.Id}">${e.status}</label>
             </td>
             <td>
                 <button 
@@ -118,7 +122,6 @@ function calcularTotales(oper, value){
             totalCantidad += producto[0].Cuantity;
             totalAcumuado += producto[0].Price;
             totales = (totalCantidad * totalAcumuado);
-            console.log(value)
             break;
 
         case "subt":
@@ -136,3 +139,10 @@ function calcularTotales(oper, value){
 
 }
 
+function state(label, checkBum, id){
+    
+    let result = checkBum.checked ? label.innerText = "Comprado": label.innerText = "Pendiente"
+    let producto = productos.filter(e => e.Id === id)
+    producto.status = result
+    console.log(producto)
+}

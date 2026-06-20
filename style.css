@@ -43,8 +43,9 @@ ul, ol{
     --info-text: #0dcaf0;
     --info-bg: #032830;
 
-    --text-sm: 1rem;
-    --text-md: 1.5rem;
+    --text-sm: 0.6rem;
+    --text-md: 1rem;
+    --text-lg: 1.5rem;
     --text-xl: 2rem;
 
     --border-radius: 5px;
@@ -94,6 +95,9 @@ form{
 
 label{
     font-weight: bold;
+    text-justify: center;
+    text-align: center;
+    height: 100%;
 }
 
 .containerImpForm{
@@ -105,7 +109,7 @@ label{
     gap: 10px;
 }
 
-form>input{
+input{
     height: 40px;
     border-radius: var(--border-radius);
     border: var(--secondary-text) solid 1px;
@@ -129,6 +133,7 @@ form>input{
     border-radius: var(--border-radius);
     color: var(--light-text);
     cursor: pointer;
+    transition: ease-in-out 200ms;
 }
 
 table{
@@ -149,6 +154,7 @@ caption{
 td, th{
     border: var(--dark-bg) solid 1px;
     padding: 2px 5px;
+    
 }
 
 th{
@@ -164,16 +170,69 @@ tfoot>tr>td{
 
 .checkBut{
     background-color: #031634;
+    height: 100%;
+    width: auto;
 }
 
 .btnDelete{
     width: 60px;
     background-color: var(--danger-text);
-    font-size: var(0.8rem);
+    font-size: var(--text-sm);
     border-radius: var(--border-radius);
     width: 80px;
     color: var(--light-text);
     font-weight: bold;
     border: solid var(--danger-bg) 1px;
     cursor: pointer;
+}
+
+
+/* RESPONSIVE DESIGN */
+
+@media(width <= 800px){
+    body, main, header, footer{
+        max-width: 800px;
+    }
+
+    label{
+        font-size: var(--text-sm);
+    }
+
+    .inpData{
+        max-width: 100px;
+        font-size: var(--text-sm);
+        text-align: center;
+        height: 30px;
+    }
+
+    table{
+        font-size: var(--text-sm)
+    }
+
+    .btn{
+        width: 120px;
+        height: 30px;
+        font-size: var(--text-sm);
+    }
+
+    .checkBut{
+        max-width: 10px;
+    }
+    
+}
+
+/* Animaciones */
+
+.btnSuccess:hover{
+    border: solid var(--success-bg) 1px;
+    background-color: var(--light-text);
+    color: var(--success-text);
+    transition: ease-in-out 200ms;
+}
+
+.btnDelete:hover{
+    border: solid var(--light-bg) 1px;
+    background-color: var(--light-text);
+    color: var(--danger-text);
+    transition: ease-in-out 200ms;
 }

@@ -19,19 +19,19 @@
                 <div class="containerImpForm">
                     <div class="boxContainer">
                         <label for="prodName">Producto</label>
-                        <input required placeholder="Ingrese el producto" type="text" name="prodName" id="prodName">
+                        <input required placeholder="Ingrese el producto" type="text" name="prodName" id="prodName" class="inpData">
                     </div>
                     <div class="boxContainer">
                         <label for="prodCuant">Cantidad</label>
-                        <input required placeholder="Ingrese la cantidad" type="number" name="prodCuant" id="prodCuant">
+                        <input required placeholder="Ingrese la cantidad" type="number" name="prodCuant" id="prodCuant" class="inpData" min="1" step="1">
                     </div>
                     <div class="boxContainer">
                         <label for="prodPrice">Precio</label>
-                        <input required placeholder="Ingrese el precio" type="number" name="prodPrice" id="prodPrice">
+                        <input required placeholder="Ingrese el precio" type="number" name="prodPrice" id="prodPrice" class="inpData" min="1" step="1">
                     </div>
                 </div>
                 <div class="containerButton">
-                    <button type="button" class="btnSuccess" onclick="agregarProducto()">Agregar a lista</button>
+                    <button type="button" class="btn btnSuccess" onclick="agregarProducto()">Agregar a lista</button>
                 </div>
             </form>
         </fieldset>
