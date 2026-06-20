@@ -1,4 +1,8 @@
 let productos = [];
+let contador = 1
+let totalCantidad = 0
+let totalAcumuado = 0
+let totales = 0
 
 function agregarProducto(){
     
@@ -7,7 +11,7 @@ function agregarProducto(){
     let cuantity = document.getElementById("prodCuant");
     let price = document.getElementById("prodPrice");
 
-    /* validacion de datos */
+    // /* validacion de datos */
     if(product.value === "" || cuantity.value === "" || price.value === ""){
         alert("Debe completarlos campos requeridos.");
         return;
@@ -17,22 +21,28 @@ function agregarProducto(){
     }
 
     /* Creando variable de registro */
-    const listProd = {
-        Id: productos.length+1,
+    const registroProd = {
+        Id: contador++,
         Product: product.value,
-        Cuantity: cuantity.value,
-        Price: price.value,
-        amound: cuantity.value * price.value
+        Cuantity: parseInt(cuantity.value),
+        Price: parseInt(price.value),
+        amound: parseInt(cuantity.value * price.value)
     };
-    productos.push(listProd);
+    productos.push(registroProd);
 
     /* Limpiando campos */
     product.value = ""
     cuantity.value = ""
     price.value = ""
-
+    
+    /* Actualiando totales */
+    calcularTotales("add",registroProd.Id)
+    
+    /* Mostrando productos guardados */
     mostrarRegistros(productos)
 }
+
+////////////////////////////////////////
 
 function mostrarRegistros(values){
     
@@ -45,7 +55,7 @@ function mostrarRegistros(values){
         return;
     }
 
-    /* Preparando registro para la tabla */
+    /* Preparando registro para mostrar en la tabla */
     values.forEach(e=>{
 
         let content = document.createElement("tr");
@@ -74,16 +84,55 @@ function mostrarRegistros(values){
                 output.appendChild(content);
             }
     )
-    return output
+    return output;
 }
+
+////////////////////////////////////////
 
 function eliminar(e){
-    console.log(productos.indexOf(e))
-    let element = document.getElementById(e).remove()
-    console.log(productos)
+    /* Funcion para restar del total valores del producto eliminado */
+    calcularTotales("subt", e);
+
+    /* Eliminando registro del DOM y de la variable productos */
+    let index = productos.findIndex(i=> i.Id === e);
+    productos.splice(index,1);
+    let element = document.getElementById(e).remove();
+    
 }
 
-let numeros =[1,2,3]
-console.log(numeros.forEach(elm=>{
-    console.log(numeros.indexOf(elm))
-}))
+////////////////////////////////////////
+
+function calcularTotales(oper, value){
+    /* Seleccionando elementos del dom para sumar totales de productos */
+    let cantidadCont = document.getElementById("totalCantidad");
+    let precioCont =  document.getElementById("totalPrecio");
+    let totalesCont = document.getElementById("totalGeneral");
+
+    /* Buscando el producto agregado */
+    let producto = productos.filter(elm => elm.Id === value);
+    
+    /* Swtch para calcular suma o resta de productos en los totales de la tabla. */
+    switch(oper){
+        case "add":
+            /* Actualizando totales. */
+            totalCantidad += producto[0].Cuantity;
+            totalAcumuado += producto[0].Price;
+            totales = (totalCantidad * totalAcumuado);
+            console.log(value)
+            break;
+
+        case "subt":
+            totalCantidad -= producto[0].Cuantity;
+            totalAcumuado -= producto[0].Price;
+            totales = (totalCantidad * totalAcumuado);
+            break;
+            
+        }
+
+        /* Agregando valores totales calculados al DOM. */
+        cantidadCont.innerText = totalCantidad;
+        precioCont.innerText = totalAcumuado;
+        totalesCont.innerText = totales;
+
+}
+
